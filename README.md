@@ -1,7 +1,7 @@
 # prof2018_sudoku
 
 ## Sudoku Verifier
-#####Subject: Profundización en Ingeniería del Software
+*__Subject: Profundización en Ingeniería del Software__*
 
 Sudoku is a game with few simple rules, where the goal is to place nine sets
 of positive digits (1…9) into the cells of a fixed grid structure (i.e. board). The
