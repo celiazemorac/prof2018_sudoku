@@ -1,9 +1,11 @@
-package es.upm.grise.profundizacion2018.sudokuverifier;
+package es.upm.grise.profundizacion2018.sudokuverifier.Exceptions;
 
-public class SudokuVerifierException extends Exception {
+public class SudokuFormatVerifierException extends Exception {
 
-    public SudokuVerifierException(int errorCode) {
-        super(String.valueOf(errorCode));
+
+    public SudokuFormatVerifierException(int formatErrorCode, String message) {
+        super("Sorry, your solution's format not is correct, your code error is (" +
+                String.valueOf(formatErrorCode) + ") " + message);
     }
 
 }
