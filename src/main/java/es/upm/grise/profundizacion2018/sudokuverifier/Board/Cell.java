@@ -8,7 +8,9 @@ public class Celd {
 
     private int numericalValue;
 
-    public Celd(){}
+    public Celd(){
+        this.numericalValue = 0;
+    }
 
     public Celd(int numericalValue){
         this.numericalValue = numericalValue;
