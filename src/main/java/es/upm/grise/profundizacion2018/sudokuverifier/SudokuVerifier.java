@@ -4,6 +4,7 @@ package es.upm.grise.profundizacion2018.sudokuverifier;
 import es.upm.grise.profundizacion2018.sudokuverifier.Board.Board;
 import es.upm.grise.profundizacion2018.sudokuverifier.Exceptions.ErrorCodes;
 import es.upm.grise.profundizacion2018.sudokuverifier.Exceptions.SudokuFormatVerifierException;
+import es.upm.grise.profundizacion2018.sudokuverifier.Exceptions.SudokuRuleVerifierException;
 import es.upm.grise.profundizacion2018.sudokuverifier.Exceptions.Untouchable;
 
 public class SudokuVerifier {
@@ -55,6 +56,7 @@ public class SudokuVerifier {
     }
 
 	public int verify (String candidateSolution) {
+        int validity = 0;
         try {
             if (canWeFormABoard(candidateSolution)) {
                 char[] candidateValues = candidateSolution.toCharArray();
@@ -68,8 +70,12 @@ public class SudokuVerifier {
             }
         } catch (SudokuFormatVerifierException error) {
             System.err.println(error.getMessage());
+            validity = -1;
+        } catch (SudokuRuleVerifierException error) {
+            System.err.println(error.getMessage());
+            validity = -1;
         }
-        return 0;
+        return validity;
     }
 
     public void prepareSudokuBoard() {

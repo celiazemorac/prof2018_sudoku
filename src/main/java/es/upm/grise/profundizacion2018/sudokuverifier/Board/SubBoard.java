@@ -25,14 +25,12 @@ public class SubBoard {
         return this.cells[row][column];
     }
 
-    public void assignValueToCell(int candidateValue, int row, int column) {
-        try {
-            if (valueDoesNotExist(candidateValue, row, column)) {
-                Cell cell = this.cells[row][column];
-                cell.setNumericalValue(candidateValue);
-            }
-        }  catch (SudokuRuleVerifierException error) {
-            System.err.println(error.getMessage());
+    public void assignValueToCell(int candidateValue, int row, int column)
+            throws SudokuRuleVerifierException {
+
+        if (valueDoesNotExist(candidateValue, row, column)) {
+            Cell cell = this.cells[row][column];
+            cell.setNumericalValue(candidateValue);
         }
     }
 

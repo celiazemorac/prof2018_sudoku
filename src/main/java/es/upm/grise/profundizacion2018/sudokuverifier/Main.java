@@ -21,9 +21,10 @@ public class Main {
 
         validity = sudoku_verifier.verify(candidateSolution);
 
-        if (validity == 0) System.out.println("Congratulations, valid Sudoku solution\n");
-
-        Printer.solution = candidateSolution.toCharArray();
-        printer.printSolution();
+        if (validity == 0) {
+            System.out.println("Congratulations, valid Sudoku solution\n");
+            Printer.solution = candidateSolution.toCharArray();
+            printer.printSolution();
+        }
     }
 }

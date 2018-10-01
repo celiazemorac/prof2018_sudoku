@@ -13,19 +13,16 @@ public class Board {
         create();
     }
 
-    public void assignValueToCell(int rowOfTheCell, int columnOfTheCell, int candidateValue){
+    public void assignValueToCell(int rowOfTheCell, int columnOfTheCell, int candidateValue)
+            throws SudokuRuleVerifierException {
 
-        try {
-            if (notExistCandidateValueInGlobalRow(rowOfTheCell, candidateValue) &&
-                    notExistCandidateValueInGlobalColumn(columnOfTheCell, candidateValue)) {
-                int subBoardRow = calculateSubBoardCoordenate(rowOfTheCell);
-                int subBoardColumn = calculateSubBoardCoordenate(columnOfTheCell);
-                int boardRow = getBoardRow(rowOfTheCell);
-                int boardColumn = getBoardRow(columnOfTheCell);
-                this.board[boardRow][boardColumn].assignValueToCell(candidateValue, subBoardRow, subBoardColumn);
-            }
-        } catch (SudokuRuleVerifierException error) {
-            System.err.println(error.getMessage());
+        if (notExistCandidateValueInGlobalRow(rowOfTheCell, candidateValue) &&
+                notExistCandidateValueInGlobalColumn(columnOfTheCell, candidateValue)) {
+            int subBoardRow = calculateSubBoardCoordenate(rowOfTheCell);
+            int subBoardColumn = calculateSubBoardCoordenate(columnOfTheCell);
+            int boardRow = getBoardRow(rowOfTheCell);
+            int boardColumn = getBoardRow(columnOfTheCell);
+            this.board[boardRow][boardColumn].assignValueToCell(candidateValue, subBoardRow, subBoardColumn);
         }
     }
 
