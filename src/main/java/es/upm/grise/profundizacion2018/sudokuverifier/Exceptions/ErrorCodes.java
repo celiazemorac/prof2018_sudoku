@@ -7,6 +7,8 @@ public class ErrorCodes {
     public static final int ERROR_CODE_R3 = -3;
     public static final int ERROR_CODE_R4 = -4;
 
+
     public static final int ERROR_CODE_NUMBER_OF_CHARACTERS = -5;
     public static final int ERROR_CODE_NOT_NUMBERS = -6;
+    public static final int ERROR_CODE_UNTOUCHABLE_CELL = -7;
 }

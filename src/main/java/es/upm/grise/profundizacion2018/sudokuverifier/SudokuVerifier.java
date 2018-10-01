@@ -4,23 +4,38 @@ package es.upm.grise.profundizacion2018.sudokuverifier;
 import es.upm.grise.profundizacion2018.sudokuverifier.Board.Board;
 import es.upm.grise.profundizacion2018.sudokuverifier.Exceptions.ErrorCodes;
 import es.upm.grise.profundizacion2018.sudokuverifier.Exceptions.SudokuFormatVerifierException;
+import es.upm.grise.profundizacion2018.sudokuverifier.Exceptions.SudokuRuleVerifierException;
 
 public class SudokuVerifier {
 
     public static final int MIN_VALUE_OF_NUMERICAL_RANGE = 1;
     public static final int MAX_VALUE_OF_NUMERICAL_RANGE = 9;
     private static final int NUMBER_OF_CHARACTERS_OF_SOLUTION = 81;
-    private static final int DIMENSION = 3; // 3x3
+
     private Board sudokuBoard;
+
+    public SudokuVerifier(){
+        this.sudokuBoard = new Board();
+    }
 
 	public int verify (String candidateSolution) {
 
         try {
             if (canWeFormABoard(candidateSolution)) {
-
+                char[] candidateValues = candidateSolution.toCharArray();
+                for (int x = 0; x < MAX_VALUE_OF_NUMERICAL_RANGE; x++) {
+                    for (int y = 0; y < MAX_VALUE_OF_NUMERICAL_RANGE; y++) {
+                        int candidateValue = Character.getNumericValue(
+                                candidateValues[(MAX_VALUE_OF_NUMERICAL_RANGE*x)+y]);
+                        this.sudokuBoard.assignValueToCell(x, y , candidateValue);
+                    }
+                }
             }
         } catch (SudokuFormatVerifierException error) {
-            System.err.println(error);
+            System.err.println(error.getMessage());
+            System.exit(-1);
+        } catch (SudokuRuleVerifierException error) {
+            System.err.println(error.getMessage());
             System.exit(-1);
         }
         return 0;
