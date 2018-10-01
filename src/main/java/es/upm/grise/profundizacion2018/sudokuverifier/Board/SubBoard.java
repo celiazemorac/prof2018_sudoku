@@ -1,7 +1,6 @@
 package es.upm.grise.profundizacion2018.sudokuverifier.Board;
 
 import es.upm.grise.profundizacion2018.sudokuverifier.Exceptions.ErrorCodes;
-import es.upm.grise.profundizacion2018.sudokuverifier.Exceptions.SudokuFormatVerifierException;
 import es.upm.grise.profundizacion2018.sudokuverifier.Exceptions.SudokuRuleVerifierException;
 
 public class SubBoard {
@@ -18,11 +17,27 @@ public class SubBoard {
         return this.cells[row][column].getNumericalValue();
     }
 
-    public void assignValueToCeld(int candidateValue, int row, int column) throws SudokuRuleVerifierException,
-            SudokuFormatVerifierException{
-        if (valueDoesNotExist(candidateValue)) {
-            this.cells[row][column].setNumericalValue(candidateValue);
+    public boolean isTheCellUntouchable(int row, int column) {
+        return this.cells[row][column].isUntouchable();
+    }
+
+    public Cell getCell(int row, int column) {
+        return this.cells[row][column];
+    }
+
+    public void assignValueToCell(int candidateValue, int row, int column) {
+        try {
+            if (valueDoesNotExist(candidateValue, row, column)) {
+                Cell cell = this.cells[row][column];
+                cell.setNumericalValue(candidateValue);
+            }
+        }  catch (SudokuRuleVerifierException error) {
+            System.err.println(error.getMessage());
         }
+    }
+
+    public void assignValueToForceToCell(int candidateValue, int row, int column) {
+        this.cells[row][column].assignValueToForce(candidateValue);
     }
 
     private void create(){
@@ -33,14 +48,21 @@ public class SubBoard {
         }
     }
 
-    private boolean valueDoesNotExist(int candidateValue) throws SudokuRuleVerifierException {
-
-        for (int x = 0; this.cells.length < DIMENSION; x++) {
-            for (int y = 0; this.cells.length < DIMENSION; y++) {
-                if (this.cells[x][y].getNumericalValue() == candidateValue)
-                    throw new SudokuRuleVerifierException(ErrorCodes.ERROR_CODE_R2);
+    private boolean valueDoesNotExist(int candidateValue, int candidateRow, int candidateColumn)
+            throws SudokuRuleVerifierException{
+        int count = 0;
+        for (int x = 0; x < DIMENSION; x++) {
+            for (int y = 0; y < DIMENSION; y++) {
+                Cell cell = this.cells[x][y];
+                int cellValue = cell.getNumericalValue();
+                if (cellValue == candidateValue) {
+                    count++;
+                    if (candidateRow == x && candidateColumn == y) count--;
+                }
             }
         }
+        if ((count + 1) > 1)
+            throw new SudokuRuleVerifierException(ErrorCodes.ERROR_CODE_R2);
         return true;
     }
 }

@@ -15,20 +15,13 @@ public class Cell{
         this.untouchable = false;
     }
 
-    public Cell(int numericalValue){
-        this.numericalValue = numericalValue;
-    }
-
     public int getNumericalValue() {
         return numericalValue;
     }
 
-    public void setNumericalValue(int candidateValue) throws SudokuRuleVerifierException,
-            SudokuFormatVerifierException {
+    public void setNumericalValue(int candidateValue) throws SudokuRuleVerifierException{
         if (belongsToTheNumericalRange(candidateValue)) {
-            if (isUntouchable()) throw new SudokuFormatVerifierException(ErrorCodes.ERROR_CODE_UNTOUCHABLE_CELL,
-                    "you have modified a untouchable cell.\n Please check out your candidate solution.");
-            else this.numericalValue = candidateValue;
+            this.numericalValue = candidateValue;
         } else {
             throw new SudokuRuleVerifierException(ErrorCodes.ERROR_CODE_R1);
         }
@@ -36,14 +29,6 @@ public class Cell{
 
     public void assignValueToForce(int numericalValue){
         this.numericalValue = numericalValue;
-    }
-
-    public void clear(){
-        this.numericalValue = 0;
-    }
-
-    public boolean isEmpty(){
-        return this.numericalValue == 0;
     }
 
     public boolean isUntouchable() {
