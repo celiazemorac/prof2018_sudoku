@@ -1,7 +1,5 @@
 package es.upm.grise.profundizacion2018.sudokuverifier;
 
-import static org.junit.Assert.fail;
-
 import es.upm.grise.profundizacion2018.sudokuverifier.Board.Board;
 import es.upm.grise.profundizacion2018.sudokuverifier.Board.Cell;
 import es.upm.grise.profundizacion2018.sudokuverifier.Board.SubBoard;
@@ -37,8 +35,12 @@ public class SudokuVerifierTest {
         subBoard.assignValueToForceToCell(7,2,1);
         subBoard.assignValueToForceToCell(6,2,2);
 
-        subBoard.assignValueToCell(5,1,1);
-	}
+        try {
+            subBoard.assignValueToCell(5,1,1);
+        } catch (SudokuRuleVerifierException e) {
+            System.err.println(e.getMessage());
+        }
+    }
 
 	@Test
 	public void r3Test() {
@@ -53,9 +55,13 @@ public class SudokuVerifierTest {
         sudokuBoard.assignValueToForceToCell(0,7,7);
         sudokuBoard.assignValueToForceToCell(0,8,6);
 
-        sudokuBoard.assignValueToCell(0, 2 , 6);
+        try {
+            sudokuBoard.assignValueToCell(0, 2 , 6);
+        } catch (SudokuRuleVerifierException e) {
+            System.err.println(e.getMessage());
+        }
 
-	}
+    }
 
 	@Test
 	public void r4Test() {
@@ -70,6 +76,10 @@ public class SudokuVerifierTest {
         sudokuBoard.assignValueToForceToCell(7,0,4);
         sudokuBoard.assignValueToForceToCell(8,0,0);
 
-        sudokuBoard.assignValueToCell(8, 0 , 3);
-	}
+        try {
+            sudokuBoard.assignValueToCell(8, 0 , 3);
+        } catch (SudokuRuleVerifierException e) {
+            System.err.println(e.getMessage());
+        }
+    }
 }
